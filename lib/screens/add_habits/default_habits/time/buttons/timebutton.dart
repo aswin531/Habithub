@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:habit_hub/Themes/colors.dart';
 
 class TimeButton extends StatefulWidget {
-  const TimeButton({Key? key}) : super(key: key);
+  final void Function(TimeOfDay selectedTime) onTimeSelected;
+  const TimeButton({Key? key, required this.onTimeSelected}) : super(key: key);
 
   @override
   State<TimeButton> createState() => _TimeButtonState();
@@ -49,6 +50,7 @@ class _TimeButtonState extends State<TimeButton> {
       setState(() {
         _selectedTime = pickTime;
       });
+      widget.onTimeSelected(_selectedTime);
     }
   }
 }

@@ -263,8 +263,6 @@ class ScreenRegister extends StatelessWidget {
 
   // ignore: non_constant_identifier_names
   Future<void> SavedUsername() async {
-    // ignore: avoid_print
-    // print(nameController.text);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('_keyUserName', nameController.text);
   }
@@ -276,6 +274,7 @@ class ScreenRegister extends StatelessWidget {
     final _mail = mailController.text.trim();
     final register = UserRegisterModel(
         username: _username, age: _age, height: _height, email: _mail);
-    SaveUserRegister(register);
+    UserRegisterDetails userRegisterDetails = UserRegisterDetails();
+   userRegisterDetails.SaveUserRegister(register);
   }
 }

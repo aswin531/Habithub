@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-
 // ignore: implementation_imports
 import 'package:flutter/material.dart';
 // ignore: unnecessary_import, implementation_imports
@@ -20,7 +19,7 @@ TextStyle get HeadingStyle {
 TextStyle get SubHeadingStyle {
   return GoogleFonts.lato(
       textStyle: TextStyle(
-          fontSize: 26,
+          fontSize: 50,
           fontWeight: FontWeight.bold,
           color: Get.isDarkMode ? Colors.white : Colors.black));
 }

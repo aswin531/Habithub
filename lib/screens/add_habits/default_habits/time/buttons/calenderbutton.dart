@@ -4,20 +4,24 @@ import 'package:habit_hub/themes/colors.dart';
 import 'package:intl/intl.dart';
 
 class CalenderButtonScreen extends StatefulWidget {
-  const CalenderButtonScreen({Key? key}) : super(key: key);
+  final Function(DateTime)? onDateSelected;
+
+  const CalenderButtonScreen({Key? key, required this.onDateSelected})
+      : super(key: key);
 
   @override
   State<CalenderButtonScreen> createState() => _CalenderButtonScreenState();
 }
 
 class _CalenderButtonScreenState extends State<CalenderButtonScreen> {
-  late DateTime currentdate;
+  late DateTime selectedDate = DateTime.now();
   final TextEditingController _dateController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    currentdate = DateTime.now();
+    // selectedDate = DateTime.now();
+    _dateController.text = DateFormat("dd-MM-yyyy").format(selectedDate);
   }
 
   @override
@@ -36,23 +40,29 @@ class _CalenderButtonScreenState extends State<CalenderButtonScreen> {
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          hintText: DateFormat("dd-MM-yyyy").format(currentdate),
+          hintText: DateFormat("dd-MM-yyyy").format(selectedDate),
           hintStyle: const TextStyle(
               color: white, fontSize: 14), // Adjust the font size as needed
           suffixIcon: IconButton(
             onPressed: () async {
               // ignore: no_leading_underscores_for_local_identifiers
-              final DateTime? _date = await showDatePicker(
+              final DateTime? pickedDate = await showDatePicker(
                 context: context,
-                initialDate: DateTime.now(),
+                initialDate: selectedDate,
                 firstDate: DateTime(2000),
                 lastDate: DateTime(2100),
               );
-              if (_date != null) {
-                final formattedDate = DateFormat("dd-MM-yyyy").format(_date);
+              if (pickedDate != null && pickedDate != selectedDate) {
                 setState(() {
-                  _dateController.text = formattedDate.toString();
+                  selectedDate = pickedDate;
+                  _dateController.text =
+                      DateFormat("dd-MM-yyyy").format(selectedDate);
                 });
+
+                if (widget.onDateSelected != null) {
+                  widget.onDateSelected!(DateFormat("dd-MM-yyyy")
+                      .format(selectedDate) as DateTime);
+                }
               }
             },
             icon: FaIcon(

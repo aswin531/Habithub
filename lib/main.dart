@@ -12,13 +12,10 @@ import 'package:hive_flutter/adapters.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-
-  if (!Hive.isAdapterRegistered(UserRegisterModelAdapter().typeId)) {
-    Hive.registerAdapter(UserRegisterModelAdapter());
-  }
-
+  Hive.registerAdapter(UserRegisterModelAdapter());
   Hive.registerAdapter(HabitModelAdapter());
   Hive.registerAdapter(DefaultItemsAdapter());
+  await Hive.openBox<UserRegisterModel>('UserRegister');
   await Hive.openBox<HabitModel>('userhabits');
   await Hive.openBox<HabitModel>('userfavourites');
   await Hive.openBox<DefaultItems>('defaulthabits');

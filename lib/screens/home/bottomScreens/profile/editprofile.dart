@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:habit_hub/Themes/colors.dart';
+import 'package:habit_hub/db/models/Register/user_registermodel.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
-
+   final List<UserRegisterModel> userDetails;
+  const EditProfileScreen({
+    super.key, required this.userDetails,
+  });
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
@@ -30,7 +33,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextFormField(
-                // style: const TextStyle(color: white),
                 controller: nameController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -54,7 +56,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextFormField(
-                // style: const TextStyle(color: white),
                 controller: ageController,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -125,9 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  //   builder: (context) => const BottomProfile(),
-                  // ));
+                  Navigator.pop(context);
                 },
                 child: const Text('SAVE'))
           ],

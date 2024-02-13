@@ -20,6 +20,7 @@ class AddNewHabit extends StatefulWidget {
 }
 
 class _AddNewHabitState extends State<AddNewHabit> {
+  TimeOfDay? selectedTime;
   TextEditingController userhabitController = TextEditingController();
 
   @override
@@ -82,9 +83,15 @@ class _AddNewHabitState extends State<AddNewHabit> {
                   width: double.infinity,
                   height: 425,
                   child: MainHabitsList()),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(top: 20),
-                child: ReminderContainerScreen(),
+                child: ReminderContainerScreen(
+                  onTimeSelected: (selectedTime) {
+                    setState(() {
+                      this.selectedTime = selectedTime;
+                    });
+                  },
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -105,7 +112,10 @@ class _AddNewHabitState extends State<AddNewHabit> {
                       );
                       UserHabitServices userHabitServices = UserHabitServices();
                       await userHabitServices.addUserhabit(
-                          habitname, DateTime.now().toString());
+                        habitname,
+                        DateTime.now().toString(),
+                        // selectedTime.toString(),
+                      );
                       habitList.add(habitname);
                       widget.addItem(habitname);
                       // ignore: use_build_context_synchronously

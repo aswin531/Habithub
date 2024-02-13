@@ -6,7 +6,9 @@ import 'package:habit_hub/Themes/colors.dart';
 import 'package:habit_hub/screens/add_habits/default_habits/time/buttons/timebutton.dart';
 
 class ReminderContainerScreen extends StatefulWidget {
-  const ReminderContainerScreen({Key? key}) : super(key: key);
+  const ReminderContainerScreen(
+      {Key? key, required Null Function(dynamic selectedTime) onTimeSelected})
+      : super(key: key);
   @override
   State<ReminderContainerScreen> createState() =>
       _ReminderContainerScreenState();
@@ -14,6 +16,8 @@ class ReminderContainerScreen extends StatefulWidget {
 
 class _ReminderContainerScreenState extends State<ReminderContainerScreen> {
   bool isSwitched = false;
+  TimeOfDay? selectedTime;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -71,18 +75,25 @@ class _ReminderContainerScreenState extends State<ReminderContainerScreen> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: TimeButton(),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: CalenderButtonScreen(),
+                        padding: const EdgeInsets.all(8.0),
+                        child: TimeButton(
+                          onTimeSelected: (selectedTime) {
+                            // ignore: avoid_print
+                            print('Selected time: $selectedTime');
+                            setState(() {
+                              this.selectedTime = selectedTime;
+                            });
+                          },
+                        )),
+                     Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CalenderButtonScreen(onDateSelected: (DateTime ) {  },),
                     ),
                   ],
                 ),

@@ -54,9 +54,9 @@ class _ScreenHomeState extends State<ScreenHome> {
         body: screens[index],
         bottomNavigationBar: Theme(
           data: Theme.of(context)
-              .copyWith(iconTheme: const IconThemeData(color: white)),
+              .copyWith(iconTheme: const IconThemeData(color: black)),
           child: CurvedNavigationBar(
-            color: grey,
+            color: const Color(0xFFB0B5C1),
             backgroundColor: Colors.transparent,
             height: 50,
             animationCurve: Curves.easeIn,

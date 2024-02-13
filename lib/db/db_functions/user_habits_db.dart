@@ -3,15 +3,16 @@ import 'package:hive/hive.dart';
 
 class UserHabitServices {
   final Box<HabitModel> _userhabitBox = Hive.box<HabitModel>('userhabits');
+
   Future<void> addUserhabit(String habitname, String date) async {
     final newhabit = HabitModel(habitname: habitname, date: date);
-    // ignore: avoid_print
-    print(newhabit);
     await _userhabitBox.add(newhabit);
   }
+
   List<HabitModel> getUserHabit() {
     return _userhabitBox.values.toList();
   }
+
   Future<void> updateUserHabit(int index, String updatedName) async {
     final userhabit = _userhabitBox.getAt(index);
     if (userhabit != null) {
