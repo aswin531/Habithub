@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:habit_hub/Themes/colors.dart';
 import 'package:habit_hub/db/db_functions/user_habits_db.dart';
 import 'package:habit_hub/global.dart';
@@ -58,10 +60,10 @@ class _AddNewHabitState extends State<AddNewHabit> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Choose from ours',
                       style: TextStyle(
-                          color: black,
+                          color: Get.isDarkMode ? Colors.grey[400] : black,
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
@@ -84,7 +86,7 @@ class _AddNewHabitState extends State<AddNewHabit> {
                   height: 425,
                   child: MainHabitsList()),
               Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20),
                 child: ReminderContainerScreen(
                   onTimeSelected: (selectedTime) {
                     setState(() {
@@ -106,15 +108,19 @@ class _AddNewHabitState extends State<AddNewHabit> {
                   onPressed: () async {
                     String habitname = userhabitController.text;
                     if (habitname.isNotEmpty) {
-                      await Notifications.showNotification(
-                        'Habit Saved',
-                        'Your habit "$habitname" has been saved successfully.',
-                      );
+                      LocalNotification.ShowNotifications(
+                          title: 'Habit saved',
+                          body:
+                              ' Your habit "$habitname" has been saved succesfully',
+                          payload: "Saved Successfully");
+                      String formattedTime = selectedTime != null
+                          ? '${selectedTime!.hour}:${selectedTime!.minute}'
+                          : ''; // Format the time as desired for your database
                       UserHabitServices userHabitServices = UserHabitServices();
                       await userHabitServices.addUserhabit(
                         habitname,
                         DateTime.now().toString(),
-                        // selectedTime.toString(),
+                        formattedTime,
                       );
                       habitList.add(habitname);
                       widget.addItem(habitname);

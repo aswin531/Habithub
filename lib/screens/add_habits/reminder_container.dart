@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:habit_hub/notifications/notifications.dart';
 import 'package:habit_hub/screens/add_habits/default_habits/time/buttons/calenderbutton.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:habit_hub/Themes/colors.dart';
 import 'package:habit_hub/screens/add_habits/default_habits/time/buttons/timebutton.dart';
 
 class ReminderContainerScreen extends StatefulWidget {
-  const ReminderContainerScreen(
-      {Key? key, required Null Function(dynamic selectedTime) onTimeSelected})
+  final void Function(TimeOfDay selectedTime) onTimeSelected;
+
+  const ReminderContainerScreen({Key? key, required this.onTimeSelected})
       : super(key: key);
   @override
   State<ReminderContainerScreen> createState() =>
@@ -24,12 +26,20 @@ class _ReminderContainerScreenState extends State<ReminderContainerScreen> {
       padding: const EdgeInsets.all(10.0),
       child: Container(
         decoration: BoxDecoration(
-          color: black,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ExpansionTile(
+            backgroundColor: black,
+            collapsedIconColor: green,
+            collapsedBackgroundColor: bluesgrey,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            collapsedShape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            initiallyExpanded: false,
+            iconColor: grey,
             title: const Text(
               'Additional Settings',
               style: TextStyle(
@@ -53,9 +63,15 @@ class _ReminderContainerScreenState extends State<ReminderContainerScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 150),
+                      padding: const EdgeInsets.only(left: 100),
                       child: LiteRollingSwitch(
-                        onTap: () {},
+                        width: 110,
+                        onTap: () {
+                          LocalNotification.showPeriodicNotification(
+                              title: "Reminder",
+                              body: "This is a Repeated REminder Notifications",
+                              payload: 'payload');
+                        },
                         textOn: "Do",
                         textOff: 'Dont Do',
                         colorOn: Colors.green,
@@ -68,8 +84,18 @@ class _ReminderContainerScreenState extends State<ReminderContainerScreen> {
                             isSwitched = value;
                           });
                         },
-                        onDoubleTap: () {},
-                        onSwipe: () {},
+                        onDoubleTap: () {
+                          LocalNotification.showPeriodicNotification(
+                              title: "Reminder",
+                              body: "This is a Repeated REminder Notifications",
+                              payload: 'payload');
+                        },
+                        onSwipe: () {
+                          LocalNotification.showPeriodicNotification(
+                              title: "Reminder",
+                              body: "This is a Repeated REminder Notifications",
+                              payload: 'payload');
+                        },
                       ),
                     ),
                   ],
@@ -89,11 +115,15 @@ class _ReminderContainerScreenState extends State<ReminderContainerScreen> {
                             setState(() {
                               this.selectedTime = selectedTime;
                             });
+                            widget.onTimeSelected(selectedTime);
                           },
                         )),
-                     Padding(
+                    Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: CalenderButtonScreen(onDateSelected: (DateTime ) {  },),
+                      child: CalenderButtonScreen(
+                        // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
+                        onDateSelected: (DateTime) {},
+                      ),
                     ),
                   ],
                 ),

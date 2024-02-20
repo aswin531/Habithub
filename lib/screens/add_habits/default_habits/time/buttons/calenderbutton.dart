@@ -41,8 +41,7 @@ class _CalenderButtonScreenState extends State<CalenderButtonScreen> {
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
           hintText: DateFormat("dd-MM-yyyy").format(selectedDate),
-          hintStyle: const TextStyle(
-              color: white, fontSize: 14), // Adjust the font size as needed
+          hintStyle: const TextStyle(color: white, fontSize: 14),
           suffixIcon: IconButton(
             onPressed: () async {
               // ignore: no_leading_underscores_for_local_identifiers
@@ -60,8 +59,7 @@ class _CalenderButtonScreenState extends State<CalenderButtonScreen> {
                 });
 
                 if (widget.onDateSelected != null) {
-                  widget.onDateSelected!(DateFormat("dd-MM-yyyy")
-                      .format(selectedDate) as DateTime);
+                  widget.onDateSelected!(selectedDate);
                 }
               }
             },

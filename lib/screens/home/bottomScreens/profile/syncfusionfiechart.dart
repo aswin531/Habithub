@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:habit_hub/themes/colors.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SyncFusionChart extends StatefulWidget {
@@ -21,7 +20,7 @@ class _SyncFusionChartState extends State<SyncFusionChart> {
   @override
   Widget build(BuildContext context) {
     return SfCircularChart(
-      backgroundColor: grey,
+      // backgroundColor: grey,
       series: <CircularSeries>[
         PieSeries<HabitFiChart, String>(
           dataSource: _chartData,

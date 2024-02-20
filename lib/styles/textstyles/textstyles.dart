@@ -23,3 +23,27 @@ TextStyle get SubHeadingStyle {
           fontWeight: FontWeight.bold,
           color: Get.isDarkMode ? Colors.white : Colors.black));
 }
+
+TextStyle get MainHeadingStyle {
+  return GoogleFonts.lato(
+      textStyle: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+          color: Get.isDarkMode ? Colors.white : bluesgrey));
+}
+
+TextStyle get IntroContainerStyle {
+  return GoogleFonts.lato(
+      textStyle: TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.bold,
+          color: Get.isDarkMode ? Colors.white : Colors.white));
+}
+
+TextStyle get EditTextStyle {
+  return GoogleFonts.lato(
+      textStyle: TextStyle(
+          fontSize: 32,
+          fontWeight: FontWeight.bold,
+          color: Get.isDarkMode ? white : black));
+}

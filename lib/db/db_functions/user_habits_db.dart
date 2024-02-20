@@ -4,8 +4,8 @@ import 'package:hive/hive.dart';
 class UserHabitServices {
   final Box<HabitModel> _userhabitBox = Hive.box<HabitModel>('userhabits');
 
-  Future<void> addUserhabit(String habitname, String date) async {
-    final newhabit = HabitModel(habitname: habitname, date: date);
+  Future<void> addUserhabit(String habitname, String date, String selectedTime) async {
+    final newhabit = HabitModel(habitname: habitname, date: date,selectedTime: selectedTime);
     await _userhabitBox.add(newhabit);
   }
 

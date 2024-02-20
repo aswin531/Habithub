@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:habit_hub/Themes/colors.dart';
 import 'package:habit_hub/db/db_functions/user_habits_db.dart';
+import 'package:habit_hub/db/models/habit/user_habit.dart';
+import 'package:habit_hub/styles/textstyles/textstyles.dart';
+import 'package:habit_hub/themes/colors.dart';
 
 class EditHabitScreen extends StatefulWidget {
-  final String? habitName;
+  final HabitModel habit;
   final int index;
-  const EditHabitScreen({super.key, this.habitName, required this.index});
+  const EditHabitScreen({
+    super.key,
+    required this.index,
+    required this.habit,
+  });
 
   @override
   State<EditHabitScreen> createState() => _EditHabitScreenState();
@@ -13,86 +19,124 @@ class EditHabitScreen extends StatefulWidget {
 
 class _EditHabitScreenState extends State<EditHabitScreen> {
   final TextEditingController _editingController = TextEditingController();
-  late String updatedname;
+  late HabitModel updatedHabit;
 
   @override
   void initState() {
     super.initState();
-    updatedname = widget.habitName ?? '';
-    _editingController.text = updatedname;
+    updatedHabit = widget.habit;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: white,
         automaticallyImplyLeading: false,
-        title: const Text(
-          'Edit',
-          style: TextStyle(
-              color: white, fontSize: 30, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: primary,
-        elevation: 0,
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _editingController,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15))),
+        toolbarHeight: 100,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  ' ${widget.habit.habitname}',
+                  style: EditTextStyle,
+                ),
+                const Icon(
+                  Icons.edit,
+                  size: 30,
+                ),
+              ],
             ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 5,
-                minimumSize: const Size(150, 40),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                backgroundColor: white,
-              ),
-              onPressed: () async {
-               saveChanges();
-                              },
-              child: const Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Text(
-                  'SAVE',
-                  style: TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w700, color: black),
+            Text(
+              ' ${widget.habit.habitname} is editing now!',
+              style: MainHeadingStyle,
+            ),
+          ],
+        ),
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: _editingController,
+                  decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(),
+                    labelText: widget.habit.habitname,
+                  ),
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller: TextEditingController(text: updatedHabit.date),
+                  onChanged: (value) {
+                    setState(() {
+                      updatedHabit.date = value;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    enabledBorder: OutlineInputBorder(),
+                    labelText: 'Date',
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  controller:
+                      TextEditingController(text: widget.habit.selectedTime),
+                  onChanged: (value) {
+                    setState(() {
+                      updatedHabit.selectedTime = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(),
+                    labelText: widget.habit.selectedTime,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  saveChanges();
+                },
+                child: const Text('SAVE'),
+              )
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Future<void> updateChanges() async {
-    updatedname = _editingController.text;
-    await UserHabitServices().updateUserHabit(widget.index, updatedname);
+  void updateChanges() async {
+    UserHabitServices userHabitServices = UserHabitServices();
+    String updatedName = _editingController.text;
+    await userHabitServices.updateUserHabit(widget.index, updatedName);
     setState(() {
-      updatedname = _editingController.text;
+      updatedHabit.habitname =
+          updatedName;
     });
   }
 
   void saveChanges() async {
-   await updateChanges();
-    setState(() {
-      
-    });
-    // ignore: use_build_context_synchronously
-    Navigator.of(context).pop(updatedname);
+    // await
+     updateChanges(); 
+    Navigator.of(context).pop(updatedHabit);
   }
 }
+
+
+
+
+
+
+
+
+

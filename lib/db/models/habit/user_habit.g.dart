@@ -18,7 +18,7 @@ class HabitModelAdapter extends TypeAdapter<HabitModel> {
     };
     return HabitModel(
       habitname: fields[0] as String?,
-      date: fields[1] as String?,
+      date: fields[1] as String?, selectedTime: '',
     )..selectedTime = fields[2] as String?;
   }
 

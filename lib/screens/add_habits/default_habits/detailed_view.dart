@@ -130,10 +130,11 @@ class DetailedViewScreen extends StatelessWidget {
                   backgroundColor: white,
                 ),
                 onPressed: () async {
-                  await Notifications.showNotification(
-                    'Habit Saved',
-                    'Your habit "$habitsName" has been saved successfully.',
-                  );
+                  LocalNotification.ShowNotifications(
+                      title: 'Habit saved',
+                      body:
+                          ' Your habit "$habitsName" has been saved succesfully',
+                      payload: "Saved Successfully");
 
                   await _saveDefault();
                   habitList.add(habitsName);

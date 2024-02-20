@@ -46,13 +46,14 @@ class _CustomCalenderState extends State<CustomCalender> {
                         icon: const Icon(
                           Icons.calendar_month_rounded,
                           size: 40,
-                          color: grey,
+                          color: favcolor,
                         ),
                       ),
                     ],
                   ),
-                  const Text(
+                  Text(
                     'Today',
+                    style: MainHeadingStyle,
                   ),
                 ],
               ),
@@ -68,8 +69,8 @@ class _CustomCalenderState extends State<CustomCalender> {
       context: context,
       initialDate: _selectedDate,
       firstDate: DateTime(2024),
-      lastDate: DateTime(2025),
-      barrierColor: yellow,
+      lastDate: DateTime(2100),
+      barrierColor: black,
     );
   }
 }

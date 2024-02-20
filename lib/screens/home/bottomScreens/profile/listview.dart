@@ -104,7 +104,7 @@ class _ListViewScreenState extends State<ListViewScreen> {
             GestureDetector(
                 child: IconButton(
                     onPressed: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EditProfileScreen(userDetails: userDetails),
                       ));
                     },

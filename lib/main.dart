@@ -8,10 +8,12 @@ import 'package:habit_hub/screens/register&splash/splash/splashscreen.dart';
 import 'package:habit_hub/styles/thememodes/theme.dart';
 import 'package:habit_hub/styles/thememodes/themeservices.dart';
 import 'package:hive_flutter/adapters.dart';
-
+import 'package:timezone/data/latest_all.dart' as tz;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  tz.initializeTimeZones();
+  await LocalNotification.notificationInitialization();
   Hive.registerAdapter(UserRegisterModelAdapter());
   Hive.registerAdapter(HabitModelAdapter());
   Hive.registerAdapter(DefaultItemsAdapter());
@@ -19,8 +21,6 @@ Future<void> main() async {
   await Hive.openBox<HabitModel>('userhabits');
   await Hive.openBox<HabitModel>('userfavourites');
   await Hive.openBox<DefaultItems>('defaulthabits');
-
-  await Notifications.initializeNotifications();
 
   runApp(const MyApp());
 }

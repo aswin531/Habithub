@@ -10,5 +10,5 @@ class HabitModel {
   @HiveField(2)
   String? selectedTime;
 
-  HabitModel({required this.habitname, required this.date});
+  HabitModel({required this.habitname, required this.date, required String selectedTime});
 }

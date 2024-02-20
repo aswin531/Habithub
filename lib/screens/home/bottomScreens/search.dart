@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:habit_hub/Themes/colors.dart';
 import 'package:habit_hub/db/db_functions/user_habits_db.dart';
 import 'package:habit_hub/db/models/habit/user_habit.dart';
+import 'package:habit_hub/themes/colors.dart';
 
 class BottomSearch extends StatefulWidget {
   const BottomSearch({super.key});
@@ -27,11 +27,21 @@ class _BottomSearchState extends State<BottomSearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   centerTitle: true, toolbarHeight: 100,
-      //   elevation: 0,
-      //   // title:const Text('search'),
-      // ),
+      appBar: AppBar(
+        backgroundColor: homescreencolor,
+        automaticallyImplyLeading: false,
+        toolbarHeight: 100,
+        title: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Search',
+              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            ),
+            Text('Lets, find together ')
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Center(
             child: Column(
@@ -47,11 +57,11 @@ class _BottomSearchState extends State<BottomSearch> {
                     padding: EdgeInsets.all(16.0),
                     child: Icon(
                       Icons.search,
-                      color: primary,
+                      // color: primary,
                     ),
                   ),
                   labelText: 'Find here ...',
-                  labelStyle: const TextStyle(color: primary),
+                  labelStyle: const TextStyle(),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -67,9 +77,7 @@ class _BottomSearchState extends State<BottomSearch> {
                         child: Text(
                           'Habit not found in the Database!',
                           style: TextStyle(
-                              fontSize: 30,
-                              color: red,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                       )
                     : ListView.builder(
@@ -81,7 +89,6 @@ class _BottomSearchState extends State<BottomSearch> {
                             child: Container(
                               height: 100,
                               decoration: BoxDecoration(
-                                  color: black,
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -89,7 +96,6 @@ class _BottomSearchState extends State<BottomSearch> {
                                   habit.habitname!,
                                   textAlign: TextAlign.left,
                                   style: const TextStyle(
-                                      color: white,
                                       fontSize: 25,
                                       fontWeight: FontWeight.w600),
                                 ),

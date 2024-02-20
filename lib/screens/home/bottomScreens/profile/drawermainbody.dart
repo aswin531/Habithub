@@ -4,6 +4,7 @@ import 'package:habit_hub/screens/home/bottomScreens/profile/syncfusion.dart';
 import 'package:habit_hub/screens/home/bottomScreens/profile/syncfusionfiechart.dart';
 import 'package:habit_hub/screens/home/bottomScreens/profile/syncfusionguage.dart';
 import 'package:habit_hub/styles/thememodes/themeservices.dart';
+import 'package:habit_hub/widgets/progressindicator.dart';
 
 class DrawerProfileBody extends StatefulWidget {
   const DrawerProfileBody({super.key});
@@ -35,6 +36,11 @@ class _DrawerProfileBodyState extends State<DrawerProfileBody> {
                   // }
                   break;
                 case 1:
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DonutProgressIndicator()),
+                  );
                   break;
                 case 2:
                   Navigator.push(

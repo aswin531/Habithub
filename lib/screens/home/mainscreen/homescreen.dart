@@ -1,12 +1,12 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:habit_hub/Themes/colors.dart';
 import 'package:habit_hub/screens/home/bottomScreens/categories.dart';
 import 'package:habit_hub/screens/home/bottomScreens/favourites/favourite.dart';
 import 'package:habit_hub/screens/home/bottomScreens/home.dart';
 import 'package:habit_hub/screens/home/bottomScreens/profile/drawerprofile.dart';
 import 'package:habit_hub/screens/home/bottomScreens/search.dart';
+import 'package:habit_hub/themes/colors.dart';
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({super.key});
@@ -54,16 +54,14 @@ class _ScreenHomeState extends State<ScreenHome> {
         body: screens[index],
         bottomNavigationBar: Theme(
           data: Theme.of(context)
-              .copyWith(iconTheme: const IconThemeData(color: black)),
+              .copyWith(iconTheme: const IconThemeData(color: blue)),
           child: CurvedNavigationBar(
-            color: const Color(0xFFB0B5C1),
+            color: black,
             backgroundColor: Colors.transparent,
             height: 50,
             animationCurve: Curves.easeIn,
             animationDuration: const Duration(milliseconds: 200),
             index: index,
-            //selectedItemColor: blue, // Set the color for the selected item
-            // unselectedItemColor: Colors.grey,
             items: items,
             onTap: (index) {
               setState(() {

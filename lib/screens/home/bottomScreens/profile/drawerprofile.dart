@@ -16,6 +16,7 @@ class BottomProfile extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.7000,
           child: const ListViewScreen()),
       appBar: AppBar(
+        backgroundColor: profilecolor,
         automaticallyImplyLeading: false,
         toolbarHeight: 80,
         title: const Padding(
@@ -25,7 +26,10 @@ class BottomProfile extends StatelessWidget {
             children: [
               Text(
                 'DashBoard',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),

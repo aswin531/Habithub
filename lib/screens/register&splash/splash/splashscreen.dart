@@ -29,12 +29,11 @@ class _ScreenSplashState extends State<ScreenSplash> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Replace SizedBox with Flexible to make the image responsive
           Flexible(
             flex: 1,
             child: Image.asset('assets/images/splashimg.png'),
           ),
-          const SizedBox(height: 20), // Add some spacing between the image and text
+          const SizedBox(height: 20), 
           const Text(
             'Habit Hub',
             style: TextStyle(

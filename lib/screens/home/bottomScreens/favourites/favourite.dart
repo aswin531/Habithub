@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_hub/screens/home/bottomScreens/favourites/insidefavourites.dart';
+import 'package:habit_hub/themes/colors.dart';
 
 class BottomFavourite extends StatelessWidget {
   const BottomFavourite({super.key});
@@ -8,7 +9,7 @@ class BottomFavourite extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: grey,
+        backgroundColor: favcolor,
         automaticallyImplyLeading: false,
         toolbarHeight: 100,
         title: const Column(
@@ -27,10 +28,6 @@ class BottomFavourite extends StatelessWidget {
           padding: EdgeInsets.all(8.0),
           child: FavouriteHabits(),
         ),
-        //  child: Container(width: double.infinity,
-        //     height: double.infinity,
-        //   color: grey,
-        //   child:const Text('Category Page')),
       ),
     );
   }
