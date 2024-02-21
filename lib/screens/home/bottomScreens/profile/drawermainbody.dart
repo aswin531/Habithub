@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:habit_hub/screens/home/bottomScreens/profile/privacypolicy.dart';
 import 'package:habit_hub/screens/home/bottomScreens/profile/syncfusion.dart';
 import 'package:habit_hub/screens/home/bottomScreens/profile/syncfusionfiechart.dart';
 import 'package:habit_hub/screens/home/bottomScreens/profile/syncfusionguage.dart';
+import 'package:habit_hub/screens/home/bottomScreens/profile/termsconditions.dart';
 import 'package:habit_hub/styles/thememodes/themeservices.dart';
-import 'package:habit_hub/widgets/progressindicator.dart';
 
 class DrawerProfileBody extends StatefulWidget {
   const DrawerProfileBody({super.key});
@@ -39,7 +40,7 @@ class _DrawerProfileBodyState extends State<DrawerProfileBody> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const DonutProgressIndicator()),
+                        builder: (context) => const PrivacyPolicy()),
                   );
                   break;
                 case 2:
@@ -62,7 +63,11 @@ class _DrawerProfileBodyState extends State<DrawerProfileBody> {
                   );
                   break;
                 case 5:
-                  // Function
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const TermsConditions()),
+                  );
                   break;
               }
             },
@@ -90,7 +95,7 @@ class _DrawerProfileBodyState extends State<DrawerProfileBody> {
   ];
   final icons = [
     Icons.dark_mode,
-    Icons.account_circle_rounded,
+    Icons.lock_person,
     FontAwesomeIcons.spinner,
     Icons.leaderboard,
     Icons.access_alarm,

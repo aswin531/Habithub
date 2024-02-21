@@ -114,29 +114,17 @@ class _EditHabitScreenState extends State<EditHabitScreen> {
       ),
     );
   }
-
-  void updateChanges() async {
-    UserHabitServices userHabitServices = UserHabitServices();
-    String updatedName = _editingController.text;
-    await userHabitServices.updateUserHabit(widget.index, updatedName);
-    setState(() {
-      updatedHabit.habitname =
-          updatedName;
-    });
-  }
-
+void updateChanges() async {
+  UserHabitServices userHabitServices = UserHabitServices();
+  String updatedName = _editingController.text;
+  updatedHabit.habitname = updatedName;
+  // Remove the type casting to String here
+  await userHabitServices.updateUserHabit(widget.index, updatedHabit as String);
+  setState(() {});
+}
   void saveChanges() async {
     // await
-     updateChanges(); 
+    updateChanges();
     Navigator.of(context).pop(updatedHabit);
   }
 }
-
-
-
-
-
-
-
-
-

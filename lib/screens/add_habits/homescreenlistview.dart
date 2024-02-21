@@ -8,6 +8,7 @@ import 'package:habit_hub/themes/colors.dart';
 import 'package:habit_hub/db/db_functions/user_habits_db.dart';
 // ignore: unused_import
 import 'package:habit_hub/widgets/likebutton.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreenListview extends StatefulWidget {
   final List<String> habitNames;
@@ -21,8 +22,32 @@ class HomeScreenListview extends StatefulWidget {
 }
 
 class _HomeScreenListviewState extends State<HomeScreenListview> {
-  Map<String, bool> habitCompletionStatus = {};
+  // Map<String, bool> habitCompletionStatus = {};
   double progressValue = 0;
+  late bool _isChecked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCheckBoxState();
+  }
+
+  Future<void> _loadCheckBoxState() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isChecked = prefs.getBool('isChecked') ?? false;
+    });
+  }
+
+  Future<void> _saveCheckBoxState(bool value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isChecked = value;
+    });
+    await prefs.setBool('isChecked', value);
+  }
+
+  void _updateProgressValue(bool isChecked) {}
 
   UserHabitServices userHabitServices = UserHabitServices();
   @override
@@ -78,15 +103,20 @@ class _HomeScreenListviewState extends State<HomeScreenListview> {
                                   hoverColor: blue,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)),
-                                  value:
-                                      habitCompletionStatus[habitName] ?? false,
-                                  onChanged: (value) {
+                                  value: _isChecked,
+                                  // habitCompletionStatus[habitName] ?? false,
+                                  onChanged: (value) async {
                                     setState(() {
-                                      habitCompletionStatus[habitName] = value!;
-                                      if (value) {
-                                        _showHabitFinishedPopUp(habitName);
-                                      }
+                                      _isChecked = value!;
+                                      // habitCompletionStatus[habitName] = value!;
+                                      // if (value) {
+                                      //   _showHabitFinishedPopUp(habitName);
+                                      // }
                                     });
+                                    await _saveCheckBoxState(value!);
+                                    if (value) {
+                                      _showHabitFinishedPopUp(habitName);
+                                    }
                                   },
                                 ),
                               ),
@@ -218,6 +248,7 @@ class _HomeScreenListviewState extends State<HomeScreenListview> {
           });
         });
   }
+
   void _showHabitFinishedPopUp(String habitName) {
     showDialog(
       context: context,
